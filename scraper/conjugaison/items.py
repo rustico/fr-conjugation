@@ -7,6 +7,4 @@ from scrapy.item import Item, Field
 
 class ConjugaisonItem(Item):
     verbe = Field()
-    group = Field()
     temps = Field()
-

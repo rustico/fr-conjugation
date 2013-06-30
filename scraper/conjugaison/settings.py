@@ -10,6 +10,9 @@ BOT_NAME = 'conjugaison'
 
 SPIDER_MODULES = ['conjugaison.spiders']
 NEWSPIDER_MODULE = 'conjugaison.spiders'
+FEED_FORMAT = 'jsonlines'
+
+#ITEM_PIPELINES = ['conjugaison.pipelines.ConjugaisonPipeline']
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'conjugaison (+http://www.yourdomain.com)'
