@@ -11,7 +11,6 @@ class ConjugasionSpider(BaseSpider):
         urls = []
         for verb in VERBS:
             urls.append(url_base.format(verb))
-            break
 
         return urls
 
