@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+*.sqlite
+.idea
+*.tmproj
+env/
