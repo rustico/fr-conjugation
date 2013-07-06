@@ -1,0 +1,6 @@
+{% for result in results %}
+    {{ result.verbe }}
+    {% for temp in result.temps %}
+        {{ temp.inflection }}
+    {% endfor %}
+{% endfor %}
