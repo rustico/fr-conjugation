@@ -20,14 +20,13 @@ class ConjugasionSpider(BaseSpider):
         conjugations = hxs.select('//div[@class="conjugation" or @class="conjugation nomargin"]')
         item = ConjugaisonItem()
         item['_id'] = verbe
-        temps = []
+        temps = {}
         for conjugation in conjugations:
             temp = conjugation.select('h3/text()').extract()[0]
             inflections = conjugation.select('ul/li/text()').extract()
             if inflections:
-                mode, inflection = self.translate(temp)
-                temp = { 'mode' : mode, 'inflection': inflection, 'inflections': inflections }
-                temps.append(temp)
+                mode, temp = self.translate(temp)
+                temps[temp] = { 'mode' : mode, 'inflections': inflections }
         
         item['temps'] = temps
         return item
