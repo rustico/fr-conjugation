@@ -6,5 +6,5 @@
 from scrapy.item import Item, Field
 
 class ConjugaisonItem(Item):
-    verbe = Field()
+    _id = Field()
     temps = Field()

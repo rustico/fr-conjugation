@@ -19,7 +19,7 @@ class ConjugasionSpider(BaseSpider):
         verbe = hxs.select('//div[@class="type"]')[0].select('ul/li/text()').extract()[0]
         conjugations = hxs.select('//div[@class="conjugation" or @class="conjugation nomargin"]')
         item = ConjugaisonItem()
-        item['verbe'] = verbe
+        item['_id'] = verbe
         temps = []
         for conjugation in conjugations:
             temp = conjugation.select('h3/text()').extract()[0]

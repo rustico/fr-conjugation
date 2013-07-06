@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h1>{{ verb.verbe}}</h1>
+<form action="{{ url_for('conjugation_result', inflection = inflection, verb = verb.verbe) }} " method="POST">
+  <fieldset>
+          {% for pronoun in pronouns %}
+      <div class="input-prepend input-append">
+            <span class="add-on">{{ pronoun }}</span>
+            <input class="input-medium" placeholder="" name="conjugation-{{ loop.index }}" type="text">
+      </div>
+      <br>
+      {% endfor %}
+
+    <button type="submit" class="btn">Submit</button>
+  </fieldset>
+</form>
+{% endblock %}
