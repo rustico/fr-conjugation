@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block body %}
-<h1>{{ verb.verbe}}</h1>
-<form action="{{ url_for('conjugation_result', inflection = inflection, verb = verb.verbe) }} " method="POST">
+<h1>{{ verb }}</h1>
+<form action="{{ url_for('conjugation_result', temp = temp, verb = verb) }} " method="POST">
   <fieldset>
           {% for pronoun in pronouns %}
       <div class="input-prepend input-append">
@@ -13,5 +13,6 @@
 
     <button type="submit" class="btn">Submit</button>
   </fieldset>
+  <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
 </form>
 {% endblock %}
