@@ -4,6 +4,7 @@ from flask.ext.pymongo import PyMongo
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 app.config['MONGO_DBNAME'] = 'fr'
+app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 mongo = PyMongo(app)
@@ -11,4 +12,5 @@ mongo = PyMongo(app)
 from conjugation import views, stuff
 app.jinja_env.globals['csrf_token'] = stuff.generate_csrf_token
 
-
+if __name__ == '__main__':
+    app.run()

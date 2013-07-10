@@ -6,7 +6,7 @@
           {% for pronoun in pronouns %}
       <div class="input-prepend input-append">
             <span class="add-on">{{ pronoun }}</span>
-            <input class="input-medium" placeholder="" name="conjugation-{{ loop.index }}" type="text">
+            <input class="input-medium" placeholder="" name="conjugation-{{ loop.index }}" type="text" autocomplete="off">
       </div>
       <br>
       {% endfor %}
