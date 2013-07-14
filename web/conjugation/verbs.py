@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import random
 from conjugation import mongo
 
@@ -7,10 +8,10 @@ class Verbs():
         return mongo.db.verbs.count()
 
     @classmethod
-    def get_random_verb(cls, temp):
+    def get_random_verb(cls, temp, mode):
         total_verbs = cls.total()
         random_verbs = random.randrange(total_verbs - 1)
-        return mongo.db.verbs.find({'temps.' + temp: {'$exists': True } }).skip(random_verbs).limit(1)[0]
+        return mongo.db.verbs.find({'temps.temp': temp, 'temps.mode' : mode }).skip(random_verbs).limit(1)[0]
 
     @classmethod
     def get_verb_pronouns(cls, verb):
@@ -19,17 +20,27 @@ class Verbs():
         PRONOUNS_CONTRACTED = ['J\'', 'Tu', 'Il/Elle', 'Nous', 'Vous', 'Ils/Elles']  
 
         first_letter = verb[0]
-        return PRONOUNS_CONTRACTED if first_letter in 'aeiuoh' else PRONOUNS
+        return PRONOUNS_CONTRACTED if first_letter in u'aeiuohé' else PRONOUNS
 
     @classmethod
-    def is_conjugation_correct(cls, temp, verb, form):
-        verb_db = mongo.db.verbs.find({'_id' : verb, 'temps.' + temp: {'$exists': True } })[0]
-        inflections = []
-        for item in form.items():
-            if 'conjugation' in item[0]: 
-                inflections.append(item)
+    def is_conjugation_correct(cls, temp, mode, verb, inflections):
+        verb_db = mongo.db.verbs.find({'_id' : verb, 'temps.temp' : temp, 'temps.mode': mode })[0]
+        inflections_db = cls.get_verb_inflections(verb_db, temp, mode)
+        is_correct = True
+        corrections = [None] * len(inflections)
+        pronouns = cls.get_verb_pronouns(verb)
+        for i in range(len(inflections)):
+            # je parle ->  jeparle != jeparle <- je + ParLe
+            if(inflections_db[i].replace(' ', '') != '{0}{1}'.format(pronouns[i], inflections[i]).lower()):
+                is_correct = False
+                corrections[i] = inflections_db[i]
 
-        inflections = sorted(inflections)
-        temp = verb_db['temps'][temp]
-        import ipdb; ipdb.set_trace()
-        return True
+        return (is_correct, corrections)
+
+    @classmethod
+    def get_verb_inflections(cls, verb, temp, mode):
+        for item in verb['temps']:
+            if item['temp'] == temp and item['mode'] == mode:
+                return item['inflections']
+
+        return None
