@@ -31,7 +31,7 @@ class Verbs():
         pronouns = cls.get_verb_pronouns(verb)
         for i in range(len(inflections)):
             # je parle ->  jeparle != jeparle <- je + ParLe
-            if(inflections_db[i].replace(' ', '') != '{0}{1}'.format(pronouns[i], inflections[i]).lower()):
+            if(inflections_db[i].replace(' ', '') != u'{0}{1}'.format(pronouns[i], inflections[i]).lower()):
                 is_correct = False
                 corrections[i] = inflections_db[i]
 

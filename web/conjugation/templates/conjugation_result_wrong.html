@@ -1,0 +1,14 @@
+{% extends 'conjugation_result.html' %}
+    {% block conjugation_result %}
+        {% for i in count %}
+        <div class="control-group {% if result.corrections[i] %} error {% else %} success {% endif %}">
+                <div class="input-prepend input-append">
+                        <span class="add-on">{{ pronouns[i] }}</span>
+                        <input disabled class="input-medium" placeholder="" type="text" autocomplete="off" value="{{ result.inflections[i] }}">
+                </div>
+                {% if result.corrections[i] %} 
+                    <span class="help-inline">{{ result.corrections[i] }}</span>
+                {% endif %}
+        </div>
+        {% endfor %}
+    {% endblock %}

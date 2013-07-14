@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
 {% block body %}
-    {{ result }}
+    <h1>{{ verb }}</h1>
+    {% block conjugation_result %}
+    {% endblock %}
+    <a href="{{ url_for('conjugate', temp = temp, mode = mode) }}"> Again </a>
 {% endblock %}
